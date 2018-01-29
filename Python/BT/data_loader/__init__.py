@@ -1,0 +1,1 @@
+from single_stock_data import get_stock_data
