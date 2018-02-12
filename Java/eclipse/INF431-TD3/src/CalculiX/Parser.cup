@@ -1,0 +1,94 @@
+package CalculiX;
+
+import java_cup.runtime.*;
+import java.lang.Integer;
+
+/* This parser is not meant to be shown to the students (they are
+   requested to write an LL(1) parser instead). It supports more
+   constructs than the LL(1) parser written by the students. In
+   order to avoid ambiguity, we use precedence declarations, which
+   are more concise than an explicit stratification of the grammar. */
+
+/* This parser relies on a factory that implements the interface
+   ExpressionFactory. Unfortunately, CUP does not offer a clean
+   way of parameterizing a parser, so we have to rely on a global
+   variable, which we place (via the following declaration) in
+   the generated class CUP$parser$actions. */
+
+action code {:
+
+  static ExpressionFactory factory;
+
+:};
+
+/* Terminal symbols (produced by the lexical analyzer). */
+
+terminal String  IDENT;
+terminal Integer INTEGER;
+terminal         EQ, LPAREN, RPAREN, LET, IN, TRUE, FALSE, IF, THEN, ELSE,
+                 PLUS, MINUS, STAR, SLASH, FOR, TO, SUM,
+                 LT, LE, EQEQ, AND, OR, NOT;
+
+/* Non-terminal symbols. */
+
+non terminal Expression                     simple_expression, expression;
+
+/* Precedence declarations, ordered from least to greatest priority. */
+
+precedence left OR;
+precedence left AND;
+precedence nonassoc LT, LE, EQEQ;
+precedence left PLUS, MINUS;
+precedence left STAR, SLASH;
+precedence nonassoc NOT;
+
+/* The start symbol. */
+
+start with expression;
+
+/* Productions. */
+
+simple_expression ::=
+  LPAREN expression:e RPAREN
+    {: RESULT = e; :}
+| IDENT:x
+    {: RESULT = factory.buildVarRead(x); :}
+| INTEGER:c
+    {: RESULT = factory.buildConstant(c); :}
+| TRUE
+    {: RESULT = factory.buildConstant(true); :}
+| FALSE
+    {: RESULT = factory.buildConstant(false); :}
+| simple_expression:e1 STAR simple_expression:e2
+    {: RESULT = factory.buildIntegerOperation(e1, Operator.MULTIPLICATION, e2); :}
+| simple_expression:e1 SLASH simple_expression:e2
+    {: RESULT = factory.buildIntegerOperation(e1, Operator.DIVISION, e2); :}
+| simple_expression:e1 PLUS simple_expression:e2
+    {: RESULT = factory.buildIntegerOperation(e1, Operator.ADDITION, e2); :}
+| simple_expression:e1 MINUS simple_expression:e2
+    {: RESULT = factory.buildIntegerOperation(e1, Operator.SUBTRACTION, e2); :}
+| simple_expression:e1 LT simple_expression:e2
+    {: RESULT = factory.buildIntegerComparison(e1, Comparator.LESSTHAN, e2); :}
+| simple_expression:e1 LE simple_expression:e2
+    {: RESULT = factory.buildIntegerComparison(e1, Comparator.LESSTHANOREQUALTO, e2); :}
+| simple_expression:e1 EQEQ simple_expression:e2
+    {: RESULT = factory.buildIntegerComparison(e1, Comparator.EQUALS, e2); :}
+| simple_expression:e1 AND simple_expression:e2
+    {: RESULT = factory.buildBooleanOperation(e1, Connective.AND, e2); :}
+| simple_expression:e1 OR simple_expression:e2
+    {: RESULT = factory.buildBooleanOperation(e1, Connective.OR, e2); :}
+| NOT simple_expression:e
+    {: RESULT = factory.buildBooleanNegation(e); :}
+;
+
+expression ::=
+  simple_expression:e
+    {: RESULT = e; :}
+| IF expression:b THEN expression:e1 ELSE expression:e2
+    {: RESULT = factory.buildIf(b, e1, e2); :}
+| LET IDENT:x EQ expression:e1 IN expression:e2
+    {: RESULT = factory.buildLet(x, e1, e2); :}
+| FOR IDENT:x EQ expression:lo TO expression:hi SUM expression:body
+    {: RESULT = factory.buildSigma(x, lo, hi, body); :}
+;
+

@@ -1,0 +1,37 @@
+A summary of the abstract syntax of CalculiX, with examples of
+concrete syntax.
+
+There is only one central syntactic category, namely expressions. The base
+class for expressions is Expression. This class declares two abstract methods,
+to be implemented by every subclass. One is wf, which checks every name is
+properly declared. The other is eval, which evaluates an expression.
+
+Here is a table of the various syntactic constructs. To each such construct
+corresponds a sub-class of Expression. For each construct, we suggest the
+concrete syntax as well as the intended semantics.
+
+Class	 	   Concrete syntax		Nature/Semantics
+
+ELet		   let x = e1 in e2		Local variable binding
+		       	      	 		Computes the value v1 of e1;
+		       	      	 		Introduces a new variable x;
+						Initializes x with v1;
+						Proceeds to evaluate e2
+
+EVarRead	   x				Local variable read access
+						Returns the value bound to x
+
+EBooleanConstant   true				Boolean constant
+		   false			Returns this constant
+
+EIf		   if e then e1			Conditional
+		   if e then e1 else e2		Evaluates e to a Boolean;
+		      	     	     		then evaluates e1 or e2, accordingly
+
+The evaluation of an expression uses an environment (see the class
+Environment). It produces a value (see the abstract class Value and its
+subclasses).
+
+The class Scope implements sets of names and is used by the method wf to check
+that every name is properly bound.
+

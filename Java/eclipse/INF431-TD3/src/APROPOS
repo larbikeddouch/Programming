@@ -1,0 +1,25 @@
+Petite description du langage CalculiX
+
+Pour ceux qui étaient là en 2010-2011, c'est une version très limitée de
+MiniliX. Il reste les expressions arithmétiques, les variables, la liaison de
+variable (let), ainsi que les booléens et la conditionnelle. En exercice, on
+pourra ajouter d'autres constructions.
+
+-- voir le fichier calculix/src/Expression.java et ses sous-classes
+
+Il n'y a pas de distinction entre expressions et instructions.
+
+Au coeur du langage, on a:
+
+  les entiers:
+    constantes (EIntegerConstant)
+    les 4 opérations
+
+  les variables locales:
+    déclaration (ELet)
+    lecture (EVarRead)
+
+  les booléens:
+    constantes (EBooleanConstant)
+    if (EIf)
+
