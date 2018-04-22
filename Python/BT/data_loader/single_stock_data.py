@@ -1,5 +1,5 @@
 import datetime
 import pandas_datareader.data as web
 
-def get_stock_data(stockname, source, startdate, enddate):
-    return web.DataReader(stockname, source, startdate, enddate)
+def get_stock_data(stocknames, source, startdate, enddate):
+    return web.DataReader(stocknames, source, startdate, enddate)

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bokeh Plot</title>
+        
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.10.min.css" type="text/css" />
+        
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.10.min.js"></script>
+<script type="text/javascript">
+    Bokeh.set_log_level("info");
+</script>
+        <style>
+          html {
+            width: 100%;
+            height: 100%;
+          }
+          body {
+            width: 90%;
+            height: 100%;
+            margin: auto;
+          }
+        </style>
+    </head>
+    <body>
+        
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="53dbfcc1-9a79-4a04-b2a8-36bc6a696547"></div>
+        </div>
+        
+        <script type="text/javascript">
+            (function() {
+          var fn = function() {
+            Bokeh.safely(function() {
+              (function(root) {
+                function embed_document(root) {
+                  var docs_json = {"5433a7bd-4432-40e5-829b-b68ae92e4822":{"roots":{"references":[{"attributes":{},"id":"53ba03f1-c658-4dd4-8555-67a229da7fbd","type":"StringEditor"},{"attributes":{"columns":[{"id":"70537865-df99-460c-b0c3-a1bc25885953","type":"TableColumn"},{"id":"61dab724-887f-4ecc-9114-d849b8616aa3","type":"TableColumn"}],"height":280,"selectable":true,"source":{"id":"cf2f9ae0-1b0f-42eb-9012-060b182c4410","type":"ColumnDataSource"},"view":{"id":"b70db4b5-3b7b-4a10-97cc-75a8e2b9eae5","type":"CDSView"},"width":400},"id":"d3b507de-32da-4098-931c-deaa03208db6","type":"DataTable"},{"attributes":{"editor":{"id":"1741e919-ef42-4306-bfd1-e99ff24a6ea5","type":"StringEditor"},"field":"downloads","formatter":{"id":"5def0bd1-ae13-405d-a2b0-98285af15076","type":"StringFormatter"},"title":"Downloads"},"id":"61dab724-887f-4ecc-9114-d849b8616aa3","type":"TableColumn"},{"attributes":{"editor":{"id":"53ba03f1-c658-4dd4-8555-67a229da7fbd","type":"StringEditor"},"field":"dates","formatter":{"id":"8c9fa815-cafe-419e-9416-2dbc7ad9bb72","type":"DateFormatter"},"title":"Date"},"id":"70537865-df99-460c-b0c3-a1bc25885953","type":"TableColumn"},{"attributes":{"args":{"source":{"id":"cf2f9ae0-1b0f-42eb-9012-060b182c4410","type":"ColumnDataSource"},"table":{"id":"d3b507de-32da-4098-931c-deaa03208db6","type":"DataTable"}},"code":"\nsource.selected['1d'].indices = cb_obj.active;\n"},"id":"8b116b06-df21-47ec-8199-36df3ebdd89f","type":"CustomJS"},{"attributes":{},"id":"5def0bd1-ae13-405d-a2b0-98285af15076","type":"StringFormatter"},{"attributes":{},"id":"8c9fa815-cafe-419e-9416-2dbc7ad9bb72","type":"DateFormatter"},{"attributes":{"callback":{"id":"5e197f16-5d2c-49a6-8a84-5ec8ee279c97","type":"CustomJS"},"icon":null,"label":"Log"},"id":"5c827984-df27-4015-93d4-fa580a987225","type":"Button"},{"attributes":{"callback":{"id":"8b116b06-df21-47ec-8199-36df3ebdd89f","type":"CustomJS"},"labels":["2014-03-01","2014-03-02","2014-03-03","2014-03-04","2014-03-05","2014-03-06","2014-03-07","2014-03-08","2014-03-09","2014-03-10"]},"id":"d659d9f4-9086-4359-a2cb-1396be94c10e","type":"CheckboxGroup"},{"attributes":{"args":{"checkbox":{"id":"d659d9f4-9086-4359-a2cb-1396be94c10e","type":"CheckboxGroup"}},"code":"\nvar inds = cb_obj.selected['1d'].indices;\n\n\ncheckbox.active = inds;\n\n\ncheckbox.change.emit()\n"},"id":"e9dc080a-2744-4ade-8ec6-a12d628708fc","type":"CustomJS"},{"attributes":{},"id":"1741e919-ef42-4306-bfd1-e99ff24a6ea5","type":"StringEditor"},{"attributes":{"callback":{"id":"e9dc080a-2744-4ade-8ec6-a12d628708fc","type":"CustomJS"},"column_names":["dates","downloads"],"data":{"dates":[1393632000000.0,1393718400000.0,1393804800000.0,1393891200000.0,1393977600000.0,1394064000000.0,1394150400000.0,1394236800000.0,1394323200000.0,1394409600000.0],"downloads":[88,72,50,9,28,67,27,83,24,54]}},"id":"cf2f9ae0-1b0f-42eb-9012-060b182c4410","type":"ColumnDataSource"},{"attributes":{"args":{"checkbox":{"id":"d659d9f4-9086-4359-a2cb-1396be94c10e","type":"CheckboxGroup"},"source":{"id":"cf2f9ae0-1b0f-42eb-9012-060b182c4410","type":"ColumnDataSource"},"table":{"id":"d3b507de-32da-4098-931c-deaa03208db6","type":"DataTable"}},"code":"\nconsole.log('checkbox',checkbox.active);\nconsole.log('source',source.selected['1d'].indices);\n"},"id":"5e197f16-5d2c-49a6-8a84-5ec8ee279c97","type":"CustomJS"},{"attributes":{"children":[{"id":"d3b507de-32da-4098-931c-deaa03208db6","type":"DataTable"},{"id":"d659d9f4-9086-4359-a2cb-1396be94c10e","type":"CheckboxGroup"},{"id":"5c827984-df27-4015-93d4-fa580a987225","type":"Button"}]},"id":"19e2e85d-1b45-4d61-9c02-5c64c0c809ae","type":"WidgetBox"},{"attributes":{"source":{"id":"cf2f9ae0-1b0f-42eb-9012-060b182c4410","type":"ColumnDataSource"}},"id":"b70db4b5-3b7b-4a10-97cc-75a8e2b9eae5","type":"CDSView"}],"root_ids":["19e2e85d-1b45-4d61-9c02-5c64c0c809ae"]},"title":"Bokeh Application","version":"0.12.10"}};
+                  var render_items = [{"docid":"5433a7bd-4432-40e5-829b-b68ae92e4822","elementid":"53dbfcc1-9a79-4a04-b2a8-36bc6a696547","modelid":"19e2e85d-1b45-4d61-9c02-5c64c0c809ae"}];
+              
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                }
+              
+                if (root.Bokeh !== undefined) {
+                  embed_document(root);
+                } else {
+                  var attempts = 0;
+                  var timer = setInterval(function(root) {
+                    if (root.Bokeh !== undefined) {
+                      embed_document(root);
+                      clearInterval(timer);
+                    }
+                    attempts++;
+                    if (attempts > 100) {
+                      console.log("Bokeh: ERROR: Unable to embed document because BokehJS library is missing")
+                      clearInterval(timer);
+                    }
+                  }, 10, root)
+                }
+              })(window);
+            });
+          };
+          if (document.readyState != "loading") fn();
+          else document.addEventListener("DOMContentLoaded", fn);
+        })();
+        
+        </script>
+    </body>
+</html>
