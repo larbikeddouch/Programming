@@ -1,6 +1,6 @@
 import data_loader
 
-source = 'yahoo'
+source = 'morningstar'
 
 def get_data(stocknames, startdate, enddate):
     return data_loader.get_stock_data(stocknames,source,startdate,enddate)
