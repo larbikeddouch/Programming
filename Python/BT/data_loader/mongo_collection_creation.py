@@ -9,6 +9,7 @@ mydata = db.data
 # Stock name and datetime
 # Initially intended to have the "unique" flag
 # set to True for such index
+# Remove?
 mydata.create_index([
         ('Stockname', "text"),
         ('Date', pymongo.DESCENDING)

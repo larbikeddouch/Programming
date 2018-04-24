@@ -33,7 +33,7 @@ def read_mongo(db='financial_data', collection='data', query={}, host='localhost
     return df
 
 
-def write_mongo(df, db='financial_data', collection='data', host='localhost', port=27017, username=None, password=None,
+def write_mongo(df, source, db='financial_data', collection='data', host='localhost', port=27017, username=None, password=None,
                 no_id=True):
     """ Read from DataFrame and store into Mongo"""
     """ Expects a MultiIndex dataframe
@@ -47,20 +47,36 @@ def write_mongo(df, db='financial_data', collection='data', host='localhost', po
     # Get specific Collection in db
     data = db[collection]
 
-    # 2 Cases :
-    # Case 1: update with new information or corrected information
-    # Case 2: write completely new data
-
-    # Case 2
+    # Turn dataframe into dictionary for mongodb insertion
     df_as_dict = df.to_dict(orient='index')
 
     def add_date_field(stock_date_tuple):
         df_as_dict[stock_date_tuple]['Stockname'] = stock_date_tuple[0]
         df_as_dict[stock_date_tuple]['Date'] = stock_date_tuple[1].to_pydatetime()
+        df_as_dict[stock_date_tuple]['Source'] = source
         return df_as_dict[stock_date_tuple]
 
-    insert_dico = map(lambda key: add_date_field(key), df_as_dict.keys())
+    insert_dico_list = map(lambda key: add_date_field(key), df_as_dict.keys())
+    insert_dico_list = [*insert_dico_list]
 
-    insertion_result = data.insert_many(insert_dico)
+    # Case 1: update with new information or corrected information
+    # Case 2: write completely new data
+    #insertion_result = data.insert_many(insert_dico)
 
-    return insertion_result
+    # Try to see if data is already inserted and, if not, sends all data
+    def add_data_point(stockinfo):
+        db_query_result = data.find_one({
+            'Date': stockinfo['Date'],
+            'Stockname': stockinfo['Stockname'],
+            'Source': source
+        })
+        if db_query_result is None:
+            data.insert_one(stockinfo)
+            return None
+        else:
+            return stockinfo
+
+    # Careful: map object is applied only when actual objects are needed
+    insertion_result = map(add_data_point, insert_dico_list)
+
+    return [*insertion_result]
