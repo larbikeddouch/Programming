@@ -1,4 +1,3 @@
-import datetime
 import pandas_datareader.data as web
 
 def get_stock_data(stocknames, source, startdate, enddate):
