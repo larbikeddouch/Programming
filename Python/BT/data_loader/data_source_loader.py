@@ -17,7 +17,7 @@ class DataSource(object):
 
     def read_data(self, stocks, start_date, end_date):
         # Mongo Query
-        df = mongo_util.read_mongo(self.source,
+        df = mongo_util.read_mongo([self.source],
                                 stocks,
                                 start_date,
                                 end_date)
@@ -25,9 +25,25 @@ class DataSource(object):
         # Performs the addition of new data only if
         # auto_complete_data is True
         if self.auto_complete_data:
+            # Case where there is currently no data
+            if df.empty:
+                self.add_new_data(stocks, start_date, end_date)
+                return mongo_util.read_mongo([self.source],
+                                           stocks,
+                                           start_date,
+                                           end_date)
+
+            # Comes here only if there already is data
             # Find out first and last date in df
             df_start_date = df.index.levels[1].min()
             df_end_date = df.index.levels[1].max()
+
+            # Ensure as few holes in data as possible
+            if df_end_date < start_date:
+                self.read_data(stocks, df_end_date, end_date)
+
+            if df_start_date > end_date:
+                self.read_data(stocks, start_date, df_start_date)
 
             # Add new data if start_date or end_date is too far
             # from current data dates
@@ -37,7 +53,7 @@ class DataSource(object):
             if (end_date - df_end_date).days > 7:
                 self.add_new_data(stocks, df_end_date, end_date)
 
-            df = mongo_util.read_mongo(self.source,
+            df = mongo_util.read_mongo([self.source],
                                        stocks,
                                        start_date,
                                        end_date)
