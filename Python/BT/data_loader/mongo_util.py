@@ -34,14 +34,17 @@ def read_mongo(sources, stocks, start_date, end_date, db='financial_data', colle
     cursor = db[collection].find(query).sort('Date', ASCENDING)
 
     # Expand the cursor and construct the DataFrame
+    # If no data matches the query, cursor is not None
+    # list(cursor) is an empty list and df is an empty dataframe
     df = pd.DataFrame(list(cursor))
 
     # Delete the _id
-    if no_id:
+    if no_id and not df.empty:
         del df['_id']
 
     # Set MultiIndex with stock and date
-    df.set_index(['Stockname', 'Date'], inplace=True)
+    if not df.empty:
+        df.set_index(['Stockname', 'Date'], inplace=True)
 
     return df
 
