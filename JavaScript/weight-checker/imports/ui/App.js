@@ -29,8 +29,8 @@ class App extends Component {
           }]
         },
         currentDate: this.getTodayDate(),
-        latestWeight: 218,
-        latestWaist: 43
+        latestWeight: 208,
+        latestWaist: 41
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -41,12 +41,6 @@ class App extends Component {
     return new Date(rightNow.getFullYear(),
                                 rightNow.getMonth(),
                                 rightNow.getDate())
-  }
-
-  newDate(x) {
-    let initialDate = new Date(2018,3,9);
-    initialDate.setDate(initialDate.getDate() + x);
-    return initialDate;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -89,6 +83,11 @@ class App extends Component {
     const dateAsString = ReactDOM.findDOMNode(this.refs.dateRef).value.trim();
     const latestWeight = ReactDOM.findDOMNode(this.refs.weightRef).value.trim();
     const latestWaist = ReactDOM.findDOMNode(this.refs.waistRef).value.trim();
+
+    // Do not execute the rest of the function if no date was entered
+    if (dateAsString === "") {
+      return;
+    }
 
     // Convert date to a JavaScript Date type
     const UTCMs = Date.parse(dateAsString);

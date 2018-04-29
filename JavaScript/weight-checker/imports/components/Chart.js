@@ -13,15 +13,6 @@ class Chart extends Component {
     }
   }
 
-  /*shouldComponentUpdate(nextProps, nextState) {
-    console.log('Chart Should Update called')
-    this.state = {
-      weightData: nextProps.weightData,
-      waistData: nextProps.waistData
-    }
-    return true;
-  }*/
-
   static defaultProps = {
     displayTitle:true,
     displayLegend:true,
