@@ -58,7 +58,7 @@ class Chart extends Component {
               callbacks: {
                 label: function(tooltipItems, data) {
                   let multistring = [tooltipItems.yLabel + " (lbs)"];
-                  multistring.push(Math.round(tooltipItems.yLabel/75.0/75.0*703.0*10)/10 + " (BMI)");
+                  multistring.push(Math.round(tooltipItems.yLabel/74.7/74.7*703.0*10)/10 + " (BMI)");
                   multistring.push(Math.round(tooltipItems.yLabel*10*0.453592)/10 + " (kg)");
                   return multistring;
                 }
