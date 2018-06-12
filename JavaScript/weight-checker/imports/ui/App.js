@@ -182,9 +182,7 @@ class App extends Component {
 
 export default withTracker(() => {
   console.log(WeightData.find({}).fetch());
-  //console.log(WeightData);
   return {
-    myWeightData: WeightData.find({}, { sort: { date: -1 } }).fetch()
-    //myWeightData: WeightData
+    myWeightData: WeightData.find({}, { sort: { date: -1 }, limit: 20 }).fetch()
   };
 })(App);
