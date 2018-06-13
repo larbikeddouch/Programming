@@ -29,8 +29,8 @@ class App extends Component {
           }]
         },
         currentDate: this.getTodayDate(),
-        latestWeight: 208,
-        latestWaist: 41
+        latestWeight: 198,
+        latestWaist: 39
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
